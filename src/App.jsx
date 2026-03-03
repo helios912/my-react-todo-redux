@@ -7,6 +7,7 @@ import './App.css';
 function App() {
     const [data, setData] = useState([]);
     const [todoska, setTodoska] = useState('');
+    const [filter, setFilter] = useState('all');
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +19,11 @@ function App() {
     const handleDelete = (delItem) => {
         setData(data.filter((item) => item.id !== delItem.id));
     };
+    const filteredData = data.filter((item) => {
+        if (filter === 'active') return !item.completed;
+        if (filter === 'completed') return item.completed;
+        return true;
+    });
     const handleToggle = (id) => {
         setData((prev) =>
             prev.map((todo) =>
@@ -41,9 +47,24 @@ function App() {
                     />
                     <button type="submit">Додати справу</button>
                 </form>
+                <div className="filter-btn_container">
+                    <button onClick={() => setFilter('all')}>Всі</button>
+                    <button onClick={() => setFilter('active')}>
+                        Невиконані
+                    </button>
+                    <button onClick={() => setFilter('completed')}>
+                        Виконані
+                    </button>
+                </div>
+                <div className="filter-btn__container">
+                    <button onClick={() => setData([])}>Очистити список</button>
+                    <button onClick={() => setData(unComlitedItems)}>
+                        Очистити виконані
+                    </button>
+                </div>
 
                 <TodoList
-                    data={data}
+                    data={filteredData}
                     toDelete={handleDelete}
                     onToggle={handleToggle}
                 />

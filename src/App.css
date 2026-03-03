@@ -62,3 +62,31 @@ form button:hover {
     justify-content: space-between;
     align-items: center;
 }
+.filter-btn_container,
+.filter-btn__container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.filter-btn_container,
+.filter-btn__container button {
+    outline: none;
+}
+.filter-btn_container button:hover {
+    background-color: yellow;
+    color: rgb(57, 150, 226);
+}
+.filter-btn__container button:hover {
+    background-color: yellow;
+    color: rgb(57, 150, 226);
+}
+
+.filter-btn_container button:active {
+    color: yellow;
+    background-color: rgb(57, 150, 226);
+}
+.filter-btn__container button:active {
+    color: yellow;
+    background-color: rgb(57, 150, 226);
+}
