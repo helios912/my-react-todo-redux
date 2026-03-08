@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import TodoList from '@components/TodoList';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,7 +10,7 @@ function App() {
     const [data, setData] = useState([]);
     const [todoska, setTodoska] = useState('');
     const [filter, setFilter] = useState('all');
-
+    const dispatch = useDispatch((state) => state.todos);
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
