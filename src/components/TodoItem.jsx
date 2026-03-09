@@ -2,7 +2,11 @@ import { FcCalendar } from 'react-icons/fc';
 import { FcCheckmark } from 'react-icons/fc';
 import { FcFullTrash } from 'react-icons/fc';
 import { FcExport } from 'react-icons/fc';
-function TodoItem({ todo, index, toDelete, onToggle }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { delTodo, toggleTodo } from '../store/todosSlice';
+function TodoItem({ todo }) {
+    const dispatch = useDispatch();
+
     return (
         <li className="todo-list__item">
             <div className="todo-item__container">
@@ -14,17 +18,17 @@ function TodoItem({ todo, index, toDelete, onToggle }) {
                     {!todo.completed ? (
                         <FcCheckmark
                             style={{ fontSize: 35, paddingRight: 20 }}
-                            onClick={() => onToggle(todo.id)}
+                            onClick={() => dispatch(toggleTodo(todo.id))}
                         />
                     ) : (
                         <FcExport
                             style={{ fontSize: 35, paddingRight: 20 }}
-                            onClick={() => onToggle(todo.id)}
+                            onClick={() => dispatch(toggleTodo(todo.id))}
                         />
                     )}
 
                     <FcFullTrash
-                        onClick={() => toDelete(todo)}
+                        onClick={() => dispatch(delTodo(todo.id))}
                         style={{ fontSize: 35, paddingRight: 10 }}
                     />
                 </div>

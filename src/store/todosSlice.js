@@ -9,17 +9,14 @@ const todosSlice = createSlice({
         addTodo: (state, action) => {
             state.push(action.payload);
         },
-    },
-    toggleTodo: (state, action) => {
-        const todoId = action.payload;
-        const todo = state.find((t) => t.id === todoId);
-        if (todo) {
-            todo.comlited = !todo.comleted;
-        }
-    },
-    delTodo: (state, action) => {
-        const todoId = action.payload;
-        state.filter((t) => t.id !== todoId);
+        toggleTodo: (state, action) => {
+            const todo = state.find((t) => t.id === action.payload);
+            if (todo) todo.completed = !todo.completed;
+        },
+        delTodo: (state, action) => {
+            const todoId = action.payload;
+            return state.filter((t) => t.id !== todoId);
+        },
     },
 });
 export const { addTodo, toggleTodo, delTodo } = todosSlice.actions;

@@ -1,23 +1,18 @@
 import TodoItem from './TodoItem';
+import { useSelector, useDispatch } from 'react-redux';
 
-function TodoList({ data, toDelete, onToggle }) {
+function TodoList() {
+    const todos = useSelector((state) => state.todos);
+
     return (
         <>
             <h3 className="todo-list__title">Список справ</h3>
             <ul className="todo-list__items">
-                {data.length === 0 ? (
+                {todos.length === 0 ? (
                     <p style={{ fontSize: 20 }}>Список пустий</p>
                 ) : (
-                    data.map((todo, index) => {
-                        return (
-                            <TodoItem
-                                key={todo.id}
-                                todo={todo}
-                                index={index}
-                                toDelete={toDelete}
-                                onToggle={onToggle}
-                            />
-                        );
+                    todos.map((todo) => {
+                        return <TodoItem key={todo.id} todo={todo} />;
                     })
                 )}
                 {}
