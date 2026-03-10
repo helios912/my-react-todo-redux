@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import './App.css';
 import { addTodo } from './store/todosSlice';
+import { updateFilter } from './store/utilsSlice';
 
 function App() {
-    const [data, setData] = useState([]);
     const [todoska, setTodoska] = useState('');
-    const [filter, setFilter] = useState('all');
+
     const dispatch = useDispatch();
-    const todos = useSelector((state) => state.todos.todos);
+    const todos = useSelector((state) => state.todos);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -22,11 +22,9 @@ function App() {
         setTodoska('');
     };
 
-    // const filteredData = todos?.filter((item) => {
-    //     if (filter === 'active') return !item.completed;
-    //     if (filter === 'completed') return item.completed;
-    //     return true;
-    // });
+    const complitedTodos = todos.filter((item) => item.completed !== true);
+
+    const todoCount = complitedTodos.length;
 
     return (
         <>
@@ -42,28 +40,26 @@ function App() {
                     <button type="submit">Додати справу</button>
                 </form>
                 <div className="filter-btn_container">
-                    <button onClick={() => setFilter('all')}>Всі</button>
-                    <button onClick={() => setFilter('active')}>
+                    <button onClick={() => dispatch(updateFilter('all'))}>
+                        Всі
+                    </button>
+                    <button onClick={() => dispatch(updateFilter('active'))}>
                         Невиконані
                     </button>
-                    <button onClick={() => setFilter('completed')}>
+                    <button onClick={() => dispatch(updateFilter('completed'))}>
                         Виконані
                     </button>
                 </div>
-                <div className="filter-btn__container">
-                    <button>Очистити список</button>
-                    <button>Очистити виконані</button>
-                </div>
             </div>
             <TodoList />
-            {/* {todoCount > 0 && (
+            {todoCount > 0 && (
                 <p className="read-the-docs">
                     Зараз у Вас {todoCount}{' '}
                     {todoCount === 1
                         ? 'невиконана справа'
                         : 'невиконаних справ'}
                 </p>
-            )} */}
+            )}
         </>
     );
 }
